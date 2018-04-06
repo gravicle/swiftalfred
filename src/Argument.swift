@@ -1,8 +1,8 @@
 public struct ComplexArgument {
-  var argument: String?
-  var variables = [String: CustomStringConvertible]()
+  public var argument: String?
+  public var variables = [String: CustomStringConvertible]()
 
-  init(argument: String? = nil, variables: [String: CustomStringConvertible]? = nil) {
+  public init(argument: String? = nil, variables: [String: CustomStringConvertible]? = nil) {
     self.argument = argument
     if let vars = variables {
       self.variables = vars
