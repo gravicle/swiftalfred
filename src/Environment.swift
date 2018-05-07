@@ -176,13 +176,16 @@ private extension NSColor {
     convenience init?(withRGBA rgba: String) {
         let numberRegex = try! NSRegularExpression(pattern: "(\\d+\\.?\\d+)")
         let matches = numberRegex.matches(in: rgba, range: NSRange(location: 0, length: rgba.count))
-        let results = matches
+        let results: [CGFloat] = matches
             .map {
                 let startIdx = rgba.index(rgba.startIndex, offsetBy: $0.range.location)
                 let endIdx = rgba.index(startIdx, offsetBy: $0.range.length)
                 return rgba.substring(with: startIdx..<endIdx)
             }
-            .flatMap { Double($0).map({ CGFloat($0) }) }
+            .flatMap { (txt: String) -> Double? in
+                return Double(txt)
+            }
+            .map { CGFloat($0) }
         guard results.count == 4 else { return nil }
         self.init(red: results[0], green: results[1], blue: results[2], alpha: results[3])
     }
